@@ -1,0 +1,133 @@
+{% load bootstrap5 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Portfolio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#hero">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Portafolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Mis Habilidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="text-center text-white d-flex justify-content-center align-items-center">
+        <div class="container">
+            <h1 class="display-4">Bienvenido a mi portafolio</h1>
+            <p class="justify">Lorem ipsum dolor sit amet. Sed nisi praesentium aut quod iste in enim pariatur aut reiciendis quod qui consectetur voluptate non ipsam internos.</p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container">
+            <h2 class="text-center">My Projects</h2>
+            <div class="row">
+                {% for proyecto in proyectos %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="{{ proyecto.imagen.url }}" class="card-img-top" alt="{{ proyecto.titulo }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ proyecto.titulo }}</h5>
+                            <p class="card-text">{{ proyecto.descripcion }}</p>
+                            <a href="{{ proyecto.link_sitio }}" class="btn btn-primary" target="_blank">Web</a>
+                            <a href="{{ proyecto.link_repositorio }}" class="btn btn-secondary" target="_blank">Repositorio</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5">
+        <div class="container">
+            <h2 class="text-center">Mis Habilidades</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">HTML</h5>
+                            <p class="card-text">Proficient in HTML5 for building semantic web pages.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">CSS</h5>
+                            <p class="card-text">Experienced with CSS3 for styling and layout design.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">JavaScript</h5>
+                            <p class="card-text">Skilled in JavaScript for interactive web applications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center">Contáctame</h2>
+            <form method="POST" action="{% url 'contacto_nuevo' %}" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="id_nombre" name="nombre" required>
+                    <div class="invalid-feedback">Por favor ingresa un nombre.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="id_email" class="form-label">Correo</label>
+                    <input type="email" class="form-control" id="id_email" name="email" required>
+                    <div class="invalid-feedback">Por favor ingresa un correo.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="id_mensaje" class="form-label">Mensaje</label>
+                    <textarea class="form-control" id="id_mensaje" name="mensaje" rows="3" required></textarea>
+                    <div class="invalid-feedback">Por favor ingresa un mensaje.</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+        </div>
+    </section>
+    {% bootstrap_javascript %}
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+
+
+   
